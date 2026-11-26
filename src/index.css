@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    --primary: 170 100% 35%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 0%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 100% 71%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 170 100% 35%;
+
+    --radius: 0.5rem;
+
+    /* Kenvue brand tokens */
+    --kenvue-green: 170 100% 35%;
+    --kenvue-yellow: 41 100% 50%;
+    --kenvue-purple: 263 72% 85%;
+    --kenvue-coral: 0 100% 71%;
+    --kenvue-blue: 213 51% 45%;
+    --kenvue-lime: 72 70% 51%;
+    --kenvue-orange: 19 100% 59%;
+
+    /* Status colors */
+    --status-not-started: 0 0% 60%;
+    --status-saved: 41 100% 50%;
+    --status-published: 145 63% 42%;
+
+    /* Grid colors */
+    --grid-readonly: 0 0% 96%;
+    --grid-past: 0 0% 94%;
+    --grid-editable: 0 0% 100%;
+    --grid-section-volume: 170 60% 95%;
+    --grid-section-pricing: 30 80% 95%;
+    --grid-section-rebates: 263 50% 95%;
+    --grid-section-margin: 145 50% 95%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 170 100% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 20%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 170 100% 35%;
+  }
+
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 170 100% 35%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 100% 71%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 170 100% 35%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 170 100% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 170 100% 35%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Planning grid styles */
+.grid-cell {
+  @apply text-xs h-8 px-2 border-r border-b border-border whitespace-nowrap;
+  min-width: 90px;
+  line-height: 32px;
+}
+
+.grid-cell-editable {
+  @apply bg-blue-50/60 cursor-text;
+}
+
+.grid-cell-editable:hover {
+  @apply bg-blue-100/50;
+}
+
+.grid-cell-editable:focus-within {
+  @apply ring-1 ring-primary/40 outline-none;
+}
+
+.grid-cell-editable .cell-value {
+  border-bottom: 1px dotted hsl(170 100% 35% / 0.4);
+  padding-bottom: 1px;
+}
+
+.grid-cell-readonly {
+  @apply bg-white;
+}
+
+.grid-cell-past {
+  background: hsl(var(--grid-past));
+}
+
+.grid-kpi-label {
+  @apply text-xs font-medium px-3 border-r border-b border-border sticky left-0 z-10;
+  background: hsl(var(--grid-readonly));
+  min-width: 220px;
+  max-width: 220px;
+  height: 32px;
+  line-height: 32px;
+}
+
+.grid-section-header {
+  @apply text-xs font-bold px-3 border-b border-border sticky left-0 z-10;
+  height: 28px;
+  line-height: 28px;
+}
+
+/* Hide scrollbar on inner grid container - only sticky bar should show */
+.grid-scroll-hidden {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.grid-scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Always-visible horizontal scrollbar for the sticky bottom bar */
+.grid-scroll-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: auto;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.3) hsl(var(--muted) / 0.5);
+}
+
+.grid-scroll-container::-webkit-scrollbar {
+  height: 14px;
+}
+
+.grid-scroll-container::-webkit-scrollbar-track {
+  background: hsl(var(--muted) / 0.5);
+  border-radius: 7px;
+}
+
+.grid-scroll-container::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.35);
+  border-radius: 7px;
+  border: 2px solid hsl(var(--muted) / 0.5);
+}
+
+.grid-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
